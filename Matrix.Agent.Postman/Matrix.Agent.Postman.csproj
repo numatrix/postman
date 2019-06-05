@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.4.0" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Matrix.netcoreapp" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Matrix.Agent.Postman.Business\Matrix.Agent.Postman.Business.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
