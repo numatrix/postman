@@ -1,5 +1,31 @@
-FROM microsoft/aspnetcore:2.0 AS base
+# prepare final image
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 EXPOSE 80
+
+# prepare build image
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+WORKDIR /src
+
+COPY Matrix.Agent.Postman/Matrix.Agent.Postman.csproj Matrix.Agent.Postman/
+COPY Matrix.Agent.Postman.Business/Matrix.Agent.Postman.Business.csproj Matrix.Agent.Postman.Business/
+COPY Matrix.Agent.Postman.Database/Matrix.Agent.Postman.Database.csproj Matrix.Agent.Postman.Database/
+COPY Matrix.Agent.Postman.Model/Matrix.Agent.Postman.Model.csproj Matrix.Agent.Postman.Model/
 COPY . .
+
+# restore
+RUN dotnet restore "Matrix.Agent.Postman/Matrix.Agent.Postman.csproj"
+
+# build
+WORKDIR /src/Matrix.Agent.Postman
+RUN dotnet build "Matrix.Agent.Postman.csproj" -c Release -o /app
+
+# publish
+FROM build AS publish
+RUN dotnet publish "Matrix.Agent.Postman.csproj" -c Release -o /app
+
+# finalize
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "Matrix.Agent.Postman.dll"]
