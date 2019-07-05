@@ -14,7 +14,7 @@ COPY Matrix.Agent.Postman.Model/Matrix.Agent.Postman.Model.csproj Matrix.Agent.P
 COPY . .
 
 # restore
-RUN dotnet restore "Matrix.Agent.Postman/Matrix.Agent.Postman.csproj"
+RUN dotnet restore "Matrix.Agent.Postman/Matrix.Agent.Postman.csproj" -s http://nuget.matrix.paramg.com:8888/v3/index.json
 
 # build
 WORKDIR /src/Matrix.Agent.Postman
